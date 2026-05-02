@@ -1,1 +1,4 @@
 hf_username: sukiboo
+ignored_spaces:
+  - gradio-chatgpt
+  - invisible-rag-demo
