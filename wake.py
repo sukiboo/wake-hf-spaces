@@ -1,22 +1,19 @@
 import yaml
-import requests
+from huggingface_hub import HfApi
 
 with open("config.yml") as f:
     config = yaml.safe_load(f)
 
-username = config["hf_username"]
-
-spaces = requests.get(
-    "https://huggingface.co/api/spaces",
-    params={"author": username},
-    timeout=30,
-).json()
+api = HfApi()
+spaces = api.list_spaces(author=config["hf_username"], expand=["runtime"])
 
 for space in spaces:
-    subdomain = space["id"].replace("/", "-").lower()
-    url = f"https://{subdomain}.hf.space/"
-    try:
-        r = requests.get(url, timeout=60)
-        print(f"{r.status_code} {url}")
-    except Exception as e:
-        print(f"ERR {url}: {e}")
+    stage = space.runtime.stage if space.runtime else None
+    if stage == "SLEEPING":
+        try:
+            api.restart_space(space.id)
+            print(f"woke {space.id}")
+        except Exception as e:
+            print(f"FAIL {space.id}: {e}")
+    else:
+        print(f"{space.id}: {stage}")
