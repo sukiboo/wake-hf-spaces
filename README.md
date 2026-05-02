@@ -1,5 +1,8 @@
 # wake-hf-spaces 🤗👈
 
+[![wake](https://github.com/sukiboo/wake-hf-spaces/actions/workflows/wake.yml/badge.svg)](https://github.com/sukiboo/wake-hf-spaces/actions/workflows/wake.yml)
+[![keepalive](https://github.com/sukiboo/wake-hf-spaces/actions/workflows/keepalive.yml/badge.svg)](https://github.com/sukiboo/wake-hf-spaces/actions/workflows/keepalive.yml)
+
 Daily GitHub Actions workflow that wakes sleeping Hugging Face Spaces via the
 HF API. A second monthly workflow pushes an empty commit so GitHub doesn't
 auto-disable the schedule after 60 days of repo inactivity.
