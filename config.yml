@@ -1,4 +1,7 @@
 hf_username: sukiboo
+wake_spaces:
+  - compare-stocks
+  - github-repo-stats
 ignored_spaces:
   - gradio-chatgpt
   - invisible-rag-demo

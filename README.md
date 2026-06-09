@@ -22,8 +22,12 @@ wake/sleep cycle, not always-on.
 1. Fork this repo.
 2. Edit `config.yml`:
    - `hf_username` — your HF username.
-   - `ignored_spaces` — optional list of space names (no `username/` prefix)
-     to skip (e.g. outdated demos you don't want restarted).
+   - `wake_spaces` — optional allowlist of space names (no `username/`
+     prefix). If set, **only** these are woken and `ignored_spaces` is
+     ignored. Use this to stay under your HF quota (free accounts run ~3
+     `cpu-basic` spaces at once).
+   - `ignored_spaces` — optional denylist of space names to skip (e.g.
+     outdated demos). Used only when `wake_spaces` is empty/absent.
 3. Create an HF token at https://huggingface.co/settings/tokens with write
    access to your spaces (see [Token scope](#token-scope) below).
 4. Add it to the repo as a secret named `HF_TOKEN` (repo Settings → Secrets

@@ -4,6 +4,7 @@ from huggingface_hub import HfApi
 with open("config.yml") as f:
     config = yaml.safe_load(f)
 
+wake_only = set(config.get("wake_spaces") or [])
 ignored = set(config.get("ignored_spaces") or [])
 
 api = HfApi()
@@ -11,7 +12,8 @@ spaces = api.list_spaces(author=config["hf_username"], expand=["runtime"])
 
 for space in spaces:
     name = space.id.split("/")[-1]
-    if name in ignored:
+    skip = name not in wake_only if wake_only else name in ignored
+    if skip:
         print(f"{space.id}: skipped")
         continue
     stage = space.runtime.stage if space.runtime else None
